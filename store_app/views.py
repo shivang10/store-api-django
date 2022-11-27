@@ -1,5 +1,6 @@
 import json
-
+import os
+from dotenv import load_dotenv
 from bson.json_util import dumps
 from django.http import JsonResponse
 from pymongo import MongoClient
@@ -8,7 +9,12 @@ from .base64_decoder import base64_decode
 from .query_val_getter import get_values
 from .supported_operators import supported_operators
 
-client = MongoClient("mongodb+srv://store-api:storeapi@cluster0.o9a5w.mongodb.net/?retryWrites=true&w=majority")
+load_dotenv()
+username = os.getenv('MONGODBUSERNAME')
+password = os.getenv('MONGODBPASSWORD')
+db_url = os.getenv('MONGO_URI')
+
+client = MongoClient(db_url)
 db = client['test']
 
 
